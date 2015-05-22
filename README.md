@@ -47,8 +47,16 @@ Good luck
         export GOPATH=`pwd`
         go get github.com/mattn/go-sqlite3
         go build -o db dbutil/db-create-test-dbs.go
-        ./db
         go build -o go-test-mysql
-        ./go-test-mysql
 
+## Run
+
+1. Create databases with test tables
+
+        ./db
+
+2. Dump from databases
+
+        mkdir archive
+        ./go-test-mysql
 
