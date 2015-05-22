@@ -40,11 +40,15 @@ Good luck
 
 1. Install [go](http://golang.org/doc/install)
 
-2. Compile go-test-mysql
+2. Compile
 
         git clone git://github.com/diafour/go-test-mysql.git
-        export GOPATH=`pwd`/go-test-mysql
         cd go-test-mysql
+        export GOPATH=`pwd`
         go get github.com/mattn/go-sqlite3
+        go build -o db dbutil/db-create-test-dbs.go
+        ./db
         go build -o go-test-mysql
+        ./go-test-mysql
+
 
