@@ -1,0 +1,53 @@
+{
+  "archive_path": "./archive",
+  "common_instance": {
+    "host": "",
+    "port": 3306,
+    "db": "app_db",
+    "user": "app_db",
+    "password": "123",
+    "tables": [
+      {
+        "table": "users",
+        "columns": [
+           {"column": "user_id", "type": "int"},
+           {"column": "name", "type": "string"}
+        ]
+      },
+      {
+        "table": "sales",
+        "columns": [
+           {"column": "user_id", "type": "int"},
+           {"column": "order_id", "type": "int"},
+           {"column": "order_amount", "type": "float"}
+        ]
+      }
+    ]
+  },
+  "instances": [
+    {
+      "name": "ru",
+      "host": "192.168.10.10",
+      "port": 3306,
+      "db": "app_db_ru",
+      "user": "app_db_ru",
+      "password": "1234"
+    },
+    {
+      "name": "en",
+      "host": "192.168.10.11",
+      "port": 3306,
+      "db": "app_db_en",
+      "user": "app_db_en",
+      "password": "1234"
+    },
+    {
+      "name": "de",
+      "host": "192.168.10.12",
+      "port": 3308,
+      "db": "app_db_de",
+      "user": "app_db_de",
+      "password": "12"
+    }
+  ]
+}
