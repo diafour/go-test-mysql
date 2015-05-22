@@ -7,6 +7,10 @@ import (
     "flag"
 )
 
+/**
+ * declate command line options and loader for json config
+ */
+
 func printHelp() {
     flag.PrintDefaults()
 }
@@ -14,15 +18,19 @@ func printHelp() {
 var options = &struct {
     configFile   string
     help         bool
+    verbose      bool
 }{
     configFile: "config.json",
     help: false,
+    verbose: false,
 }
 
 func init() {
     flag.StringVar(&options.configFile, "config", options.configFile, "path to configuraion file")
     flag.BoolVar(&options.help, "help", options.help, "print help and usage")
-
+    flag.BoolVar(&options.help, "h", options.help, "print help and usage")
+    flag.BoolVar(&options.verbose, "verbose", options.verbose, "print help and usage")
+    flag.BoolVar(&options.verbose, "v", options.verbose, "print help and usage")
 }
 
 func ParseOptions() {
@@ -57,6 +65,7 @@ type ColumnConfig struct {
 
 
 // Open json file and load to struct Config
+// config size must be greater than 0 bytes and less than 128kB
 func LoadConfig(path string) (config Config, err error) {
     configFile, err := os.Open(path)
     if err != nil {
@@ -64,8 +73,8 @@ func LoadConfig(path string) (config Config, err error) {
         return
     }
 
-    fileStat, _ := configFile.Stat()
-    if size := fileStat.Size(); size > (0x100000) {
+    fileStat,_ := configFile.Stat()
+    if size := fileStat.Size(); size > 0x20000 {
         err = fmt.Errorf("config file '%s' have size greater than 128k (%d)", path, size)
         return
     }
@@ -76,7 +85,7 @@ func LoadConfig(path string) (config Config, err error) {
     }
 
     buffer := make([]byte, fileStat.Size())
-    _, err = configFile.Read(buffer)
+    _,err = configFile.Read(buffer)
 
     err = json.Unmarshal(buffer, &config)
     if err != nil {
